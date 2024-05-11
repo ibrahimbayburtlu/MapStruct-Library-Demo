@@ -12,14 +12,16 @@ public interface CustomerMapper {
 
     CustomerMapper INSTANCE = Mappers.getMapper(CustomerMapper.class);
 
-    @Mapping(source = "id", target = "id") // --> 1
+    @Mapping(source = "ID", target = "ID") // --> 1
     @Mapping(source = "name", target = "name") // --> 1
     @Mapping(source = "phoneNumber",target = "phoneNumber",qualifiedByName = "stringToLong") // --> 2
-    @Mapping(source = "customerStatus",target = "customerStartedStatus") // --> 3
+    @Mapping(source = "customerStatus", target = "customerStartedStatus") // --> 3
     CustomerDTO customerToCustomerDTO(Customer customer);
 
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
+    @Mapping(source = "ID",target = "ID") // -->  1
+    @Mapping(source = "name", target = "name") // --> 1
+    @Mapping(source = "customerStartedStatus", target = "customerStatus") // --> 2
+    @Mapping(source = "phoneNumber", target = "phoneNumber", qualifiedByName = "longToString") // --> 3
     Customer customerDTOToCustomer(CustomerDTO customerDTO);
 
 
@@ -27,5 +29,9 @@ public interface CustomerMapper {
     default Long stringToLong(String phoneNumber) {
         phoneNumber = phoneNumber.replaceAll("\\s+", "").replaceAll("-", "");
         return Long.parseLong(phoneNumber);
+    }
+    @Named("longToString")
+    default String longToString(Long phoneNumber){
+        return phoneNumber.toString();
     }
 }

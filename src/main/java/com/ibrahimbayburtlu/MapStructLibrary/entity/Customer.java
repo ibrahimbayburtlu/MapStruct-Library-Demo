@@ -8,18 +8,14 @@ import lombok.Data;
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long ID;
 
-    @Column(name = "customer_name")
     private String name;
 
-    @Column(name = "customer_email")
-    private String email;
+    private String email = "default@gmail.com";
 
-    @Column(name = "customer_phone_number")
     private String phoneNumber;
 
-    @Column(name = "customer_status")
     private Long customerStatus;
 }
